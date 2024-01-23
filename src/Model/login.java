@@ -23,25 +23,29 @@ public class login {
         this.userType = userType;
     }
 
-    public boolean authenticate(String enteredUsername, String enteredPassword) {
-        // Kết nối đến MySQL và kiểm tra xác thực
-        try (Connection connection = DatabaseConnector.getConnection()) {
-            String query = "SELECT * FROM loginadmin WHERE username = ? AND password = ? AND user_type = ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setString(1, enteredUsername);
-                preparedStatement.setString(2, enteredPassword);
-                preparedStatement.setString(3, userType.name());
+    public String getUsername() {
+		return username;
+	}
 
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    return resultSet.next(); // Trả về true nếu có bản ghi khớp
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return false;
-    }
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 
     public UserType getUserType() {
         return userType;
